@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.example.analysisshop.mapper.UserMapper">
+    <select id="getAllUser" resultType="com.example.analysisshop.entity.User">
+      SELECT * FROM user
+    </select>
+
+    <!--用户登录验证-->
+    <select id="userlogin" parameterType="user" resultType="User">
+        SELECT id,username,password FROM user WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <!--新用户注册  方式1-->
+    <insert id="adduser" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (username,password) VALUES (#{username},#{password})
+    </insert>
+</mapper>
