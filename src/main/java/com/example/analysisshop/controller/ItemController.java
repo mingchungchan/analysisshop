@@ -2,6 +2,8 @@ package com.example.analysisshop.controller;
 
 import com.example.analysisshop.common.AssertUtil;
 import com.example.analysisshop.common.Enum.CommonError;
+import com.example.analysisshop.common.Result;
+import com.example.analysisshop.common.ResultUtils;
 import com.example.analysisshop.common.exception.ServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +23,9 @@ public class ItemController {
 
     @ResponseBody
     @RequestMapping("/getMe")
-    public String getMe(Integer i) {
+    public Result getMe(Integer i) {
         System.out.println(i);
         AssertUtil.validIsNull(i);
-        return "11";
+        return ResultUtils.succeed();
     }
 }
