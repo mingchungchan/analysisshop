@@ -4,6 +4,8 @@ import com.example.analysisshop.entity.User;
 import com.example.analysisshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,6 +61,22 @@ public class UserController {
         User user = userService.userlogin(username,password);
 
         if(user != null){                                                  //登录成功
+            request.getSession().setAttribute("session_user",user);     //将用户信息放入session
+            return "index";
+        }
+        return "loginError";
+    }
+
+    /**
+     * 获取用户名与密码，用户登录
+     * @return 登录成功页面
+     */
+    @RequestMapping(value = {"/login"})
+    public String userLogin2(@Validated User user,HttpServletRequest request){
+
+        User loguser = userService.userlogin(user.getUsername(),user.getPassword());
+
+        if(loguser != null){                                                  //登录成功
             request.getSession().setAttribute("session_user",user);     //将用户信息放入session
             return "index";
         }

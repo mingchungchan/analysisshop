@@ -1,4 +1,4 @@
-package com.example.analysisshop.common.Enum;
+package com.example.analysisshop.common.enumType;
 
 public enum CommonError {
     SUCCEED("200", "SUCCEED"),

@@ -1,6 +1,6 @@
 package com.example.analysisshop.common.exception;
 
-import com.example.analysisshop.common.Enum.CommonError;
+import com.example.analysisshop.common.enumType.CommonError;
 
 /**
  * 业务异常
