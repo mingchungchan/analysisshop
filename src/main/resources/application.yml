@@ -25,7 +25,8 @@ spring:
   #redis配置
   redis:
     host: 115.29.243.148 #Redis服务器地址
-    port: 6379 #Redis服务器连接端口
+    port: 7379 #Redis服务器连接端口
+    password: aliyun123456
     database: 0 #Redis数据库索引（默认为0）
     jedis:
       pool:
@@ -34,6 +35,10 @@ spring:
         max-idle: 20 #连接池中的最大空闲连接
         min-idle: 2 #连接池中的最小空闲连接
     timeout: 5000 #连接超时时间（毫秒）
+
+  #session保存方式，分布式环境下可用redis进行缓存,启动
+  session:
+    store-type: redis   #设置session保存为默认redis的方式
 
 
 mybatis:
