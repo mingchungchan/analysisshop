@@ -9,6 +9,14 @@ public class ResultUtils {
         return result;
     }
 
+    public static Result succeed(Object o) {
+        Result result = new Result();
+        result.setCode("200");
+        result.setMsg("SUCCEED");
+        result.setData(o);
+        return result;
+    }
+
 
     public static Result failed(String code,String msg) {
         Result result = new Result();

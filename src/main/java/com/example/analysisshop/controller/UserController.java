@@ -1,10 +1,11 @@
 package com.example.analysisshop.controller;
 
+import com.example.analysisshop.common.Result;
+import com.example.analysisshop.common.ResultUtils;
 import com.example.analysisshop.entity.User;
 import com.example.analysisshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,6 @@ import java.util.List;
  * R.put("cart", 3); // 添加购物车
  * R.put("alipay", 4); // 支付
  */
-//@RestController
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -25,27 +25,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @ResponseBody
-    @RequestMapping("/hello")
-    public String hello(){
-        return "I am Here";
-    }
 
     @ResponseBody
     @RequestMapping("/getAllUser")
     private List<User> getAllUser() {
         List<User> users =  userService.getAllUser();
         return users;
-    }
-
-    @RequestMapping("/register")
-    private String gotoRegister() {
-        return "register";
-    }
-
-    @RequestMapping("/userLogin")
-    private String gotoUserLogin() {
-        return "userLogin";
     }
 
     /**
@@ -85,23 +70,26 @@ public class UserController {
      * @return 注册结果
      */
     @ResponseBody
-    @RequestMapping(value = {"/uregister"})
-    public String addUser(@RequestParam("username") String username,
+    @RequestMapping(value = {"/register"})
+    public Result addUser(@RequestParam("username") String username,
                           @RequestParam("password") String password,
                           @RequestParam("password2") String password2){
 
         if(!password.equals(password2)){
-
-            return "两次密码不相同，注册失败！！";
+            return ResultUtils.failed("1001","两次密码不相同，注册失败！！");
         }else {
             int res = userService.adduser(username,password);
-            if(res == 0){
-                return "注册失败！";
-            }else {
-                return "注册成功！";
-            }
+            System.out.println(res);
         }
+        return ResultUtils.succeed();
+    }
 
+    @ResponseBody
+    @RequestMapping(value = {"/getAll"})
+    public String findAllUser() {
+        System.out.println("sssss");
+        userService.search().forEach(System.out::println);
+        return "ok";
     }
 
 }

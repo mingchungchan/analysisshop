@@ -1,15 +1,14 @@
 package com.example.analysisshop.mapper;
 
 import com.example.analysisshop.entity.User;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-@Mapper
 @Repository
-public interface UserMapper {
+public interface UserMapper extends Mapper<User> {
 
     List<User> getAllUser();
 
@@ -17,6 +16,6 @@ public interface UserMapper {
     User userlogin(@Param("username") String username, @Param("password") String password);
 
     //注册新用户(方式1)
-    int adduser(@Param("username") String username, @Param("password") String password);
+    int adduser(@Param("user") User user);
 
 }

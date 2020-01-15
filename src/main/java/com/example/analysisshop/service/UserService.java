@@ -1,17 +1,38 @@
 package com.example.analysisshop.service;
 
 import com.example.analysisshop.entity.User;
+import com.example.analysisshop.mapper.UserMapper;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 import java.util.List;
 
-public interface UserService {
+@Service
+public class UserService {
 
-    List<User> getAllUser();
+    @Resource
+    private UserMapper userMapper;
 
-    //用户登录
-    User userlogin(String username, String password);
+    public List<User> getAllUser() {
+        return userMapper.getAllUser();
+    }
 
-    //注册新用户(方式1)
-    int adduser(String username,String password);
+    public User userlogin(String username, String password) {
+        return userMapper.userlogin(username,password);
+    }
+
+    public int adduser(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        userMapper.adduser(user);
+        return user.getId();
+    }
+
+
+    public List<User> search() {
+        return userMapper.selectAll();
+    }
 
 
 }

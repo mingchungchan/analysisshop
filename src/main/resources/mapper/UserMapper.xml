@@ -12,8 +12,13 @@
         SELECT id,username,password FROM user WHERE username = #{username} AND password = #{password}
     </select>
 
-    <!--新用户注册  方式1-->
-    <insert id="adduser" parameterType="user" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user (username,password) VALUES (#{username},#{password})
+    <!--新用户注册  方式不返回id-->
+    <!--<insert id="adduser" parameterType="user" >-->
+        <!--INSERT INTO user (username,password) VALUES (#{username},#{password})-->
+    <!--</insert>-->
+
+    <!--新用户注册  方式返回id-->
+    <insert id="adduser" parameterType="user" useGeneratedKeys="true" keyProperty="user.id">
+        INSERT INTO user (username,password) VALUES (#{user.username},#{user.password})
     </insert>
 </mapper>

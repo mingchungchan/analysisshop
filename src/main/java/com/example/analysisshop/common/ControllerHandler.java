@@ -70,6 +70,7 @@ public class ControllerHandler {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public Result allException(HttpServletRequest req, Exception e){
+        e.printStackTrace();
         return ResultUtils.failed();
     }
 

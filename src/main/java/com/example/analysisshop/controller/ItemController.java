@@ -3,16 +3,20 @@ package com.example.analysisshop.controller;
 import com.example.analysisshop.common.AssertUtil;
 import com.example.analysisshop.common.Result;
 import com.example.analysisshop.common.ResultUtils;
-import org.springframework.http.HttpRequest;
+import com.example.analysisshop.service.ItemsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/shop")
 public class ItemController {
+
+    @Resource
+    ItemsService itemsService;
 
 
     @ResponseBody
@@ -22,7 +26,11 @@ public class ItemController {
     }
 
 
-
+    @ResponseBody
+    @RequestMapping("/getAll")
+    public Result getAll() {
+        return ResultUtils.succeed(itemsService.getAll());
+    }
 
 
     @ResponseBody
