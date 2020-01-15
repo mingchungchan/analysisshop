@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -72,7 +69,7 @@ public class UserController {
      * @return 登录成功页面
      */
     @RequestMapping(value = {"/login"})
-    public String userLogin2(@Validated User user,HttpServletRequest request){
+    public String userLogin2(@Validated @RequestBody User user, HttpServletRequest request){
 
         User loguser = userService.userlogin(user.getUsername(),user.getPassword());
 

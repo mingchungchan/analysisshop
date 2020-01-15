@@ -60,6 +60,7 @@ public class ControllerHandler {
     @ResponseBody
     public Result MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         String message = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining());
+        System.out.println("MethodArgumentNotValidException:"+message);
         return ResultUtils.failed("100",message);
     }
 
