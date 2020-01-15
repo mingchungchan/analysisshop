@@ -16,9 +16,8 @@ server:
 spring:
   datasource:
     name: test
-#    url: jdbc:mysql://192.168.0.106:3306/shop?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     url: jdbc:mysql://115.29.243.148:3306/shop?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: admind
+    username: admin
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 
@@ -45,3 +44,18 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.example.analysisshop.entity  # 注意：对应实体类的路径
 
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  not-empty: false
+  identity: MYSQL
+
+#pagehelper:
+#  helperDialect: mysql
+#  reasonable: true
+#  supportMethodsArguments: true
+#  params: count=countSql
+
+logging:
+  level:
+    tk.mybatis: TRACE
