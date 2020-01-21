@@ -2,10 +2,10 @@ package com.example.analysisshop.entity;
 
 public class Items {
 
-    private int id;
-    private String name;
-    private String brief;
-    private String picture;
+    private int id;         //id
+    private String name;    //名字
+    private String brief;   //简介
+    private String picture; //图片
 
     public int getId() {
         return id;
