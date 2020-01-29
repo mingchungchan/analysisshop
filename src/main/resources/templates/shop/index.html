@@ -11,6 +11,7 @@
 <script type="text/javascript" src="js/startstop-slider.js"></script>
 <!-- 开发环境版本，包含了有帮助的命令行警告 -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- 生产环境版本，优化了尺寸和速度 -->
 <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 </head>
@@ -191,16 +192,16 @@
 					</div>
 				</div>
 
-			</div>
+		  </div>
 			<div class="content_bottom">
-    		<div class="heading">
-    		<h3>Feature Products</h3>
-    		</div>
-    		<div class="see">
-    			<p><a href="#">See all Products</a></p>
-    		</div>
-    		<div class="clear"></div>
-    	</div>
+				<div class="heading">
+				<h3>Feature Products</h3>
+				</div>
+				<div class="see">
+					<p><a href="#">See all Products</a></p>
+				</div>
+				<div class="clear"></div>
+			</div>
 			<div class="section group">
 				<div class="grid_1_of_4 images_1_of_4">
 					 <a href="preview.html"><img src="images/new-pic1.jpg" alt="" /></a>					
@@ -323,14 +324,19 @@
 
 		var vm = new Vue({
 			el: '.itemGroup',
-			data: {
-				itemlist: [
-					{ id: '1' },
-					{ id: '2' },
-					{ id: '3' },
-					{ id: '4' }
-				]
-			}
+			data(){
+				return {
+				    itemlist: []
+				}
+			},
+            mounted () {
+                axios
+                    .get('/shop/getAll')
+                    .then(response => (this.itemlist = response.data))
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            }
 		})
 	</script>
     <a href="#" id="toTop"><span id="toTopHover"> </span></a>

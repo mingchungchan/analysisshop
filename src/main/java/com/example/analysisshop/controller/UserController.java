@@ -1,5 +1,6 @@
 package com.example.analysisshop.controller;
 
+import com.example.analysisshop.common.AssertUtil;
 import com.example.analysisshop.common.Result;
 import com.example.analysisshop.common.ResultUtils;
 import com.example.analysisshop.entity.User;
@@ -90,6 +91,21 @@ public class UserController {
         System.out.println("sssss");
         userService.search().forEach(System.out::println);
         return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/getMe")
+    public Result getMe(Integer i) {
+        System.out.println(i);
+        AssertUtil.validIsNull(i);
+        return ResultUtils.succeed();
+    }
+
+    @ResponseBody
+    @RequestMapping("/testRedis")
+    public Result testRedis(HttpServletRequest request) {
+        request.getSession().setAttribute("ni","meiyou");
+        return ResultUtils.succeed();
     }
 
 }

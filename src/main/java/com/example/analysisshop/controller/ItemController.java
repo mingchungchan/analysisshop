@@ -1,15 +1,16 @@
 package com.example.analysisshop.controller;
 
-import com.example.analysisshop.common.AssertUtil;
 import com.example.analysisshop.common.Result;
 import com.example.analysisshop.common.ResultUtils;
+import com.example.analysisshop.dto.ItemsCreateDto;
+import com.example.analysisshop.dto.ItemsDto;
 import com.example.analysisshop.service.ItemsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/shop")
@@ -33,18 +34,23 @@ public class ItemController {
     }
 
 
+    /**
+     * 后台分页查找
+     */
     @ResponseBody
-    @RequestMapping("/getMe")
-    public Result getMe(Integer i) {
-        System.out.println(i);
-        AssertUtil.validIsNull(i);
-        return ResultUtils.succeed();
+    @RequestMapping("/findByPage")
+    public Result findByPage(ItemsDto dto) {
+        return ResultUtils.succeed(itemsService.findByPage(dto));
     }
 
+
+    /**
+     * 添加
+     */
     @ResponseBody
-    @RequestMapping("/testRedis")
-    public Result testRedis(HttpServletRequest request) {
-        request.getSession().setAttribute("ni","meiyou");
-        return ResultUtils.succeed();
+    @RequestMapping("/save")
+    public Result save(@Validated ItemsCreateDto dto) {
+        return ResultUtils.succeed(itemsService.save(dto));
     }
+
 }
