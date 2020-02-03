@@ -1,6 +1,6 @@
 package com.example.analysisshop.entity;
 
-public class Items {
+public class Items{
 
     private Integer id;
     private String name;

@@ -43,7 +43,7 @@ public class ControllerHandler {
         for (FieldError errorMessage : allErrors) {
             sb.append(errorMessage.getField()).append(": ").append(errorMessage.getDefaultMessage()).append(", ");
         }
-        System.out.println(sb.toString());
+        System.out.println("handleBindException:"+sb.toString());
         return ResultUtils.failed("100",sb.toString());
     }
 
