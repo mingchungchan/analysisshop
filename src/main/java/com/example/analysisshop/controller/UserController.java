@@ -1,5 +1,6 @@
 package com.example.analysisshop.controller;
 
+import com.example.analysisshop.common.AssertUtil;
 import com.example.analysisshop.common.Result;
 import com.example.analysisshop.common.ResultUtils;
 import com.example.analysisshop.entity.User;
@@ -37,32 +38,35 @@ public class UserController {
      * 获取用户名与密码，用户登录
      * @return 登录成功页面
      */
-    @RequestMapping(value = {"/loginMethon"})
-    public String userLogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request){
+    @ResponseBody
+    @RequestMapping(value = {"/login"})
+    public Result userLogin(@Validated User user, HttpServletRequest request){
+        User loguser = userService.userlogin(user.getUsername(),user.getPassword());
 
-        User user = userService.userlogin(username,password);
-
-        if(user != null){                                                  //登录成功
-            request.getSession().setAttribute("session_user",user);     //将用户信息放入session
-            return "index";
+        if(loguser != null){                                          //登录成功
+            request.getSession().setAttribute("user",loguser);     //将用户信息放入session
+            return ResultUtils.succeed();
         }
-        return "loginError";
+        return ResultUtils.failed();
+    }
+
+    /**
+     * 获取当前登录用户
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/getUser"})
+    public Result getUser(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        return ResultUtils.succeed(user);
     }
 
     /**
      * 获取用户名与密码，用户登录
      * @return 登录成功页面
      */
-    @RequestMapping(value = {"/login"})
-    public String userLogin2(@Validated @RequestBody User user, HttpServletRequest request){
-
-        User loguser = userService.userlogin(user.getUsername(),user.getPassword());
-
-        if(loguser != null){                                                  //登录成功
-            request.getSession().setAttribute("session_user",user);     //将用户信息放入session
-            return "index";
-        }
-        return "loginError";
+    @RequestMapping(value = {"/login2"})
+    public Result userLogin2(@Validated @RequestBody User user, HttpServletRequest request){
+        return ResultUtils.succeed();
     }
 
     /**
@@ -90,6 +94,43 @@ public class UserController {
         System.out.println("sssss");
         userService.search().forEach(System.out::println);
         return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/getMe")
+    public Result getMe(Integer i) {
+        System.out.println(i);
+        AssertUtil.validIsNull(i);
+        return ResultUtils.succeed();
+    }
+
+    @ResponseBody
+    @RequestMapping("/testRedis")
+    public Result testRedis(HttpServletRequest request) {
+        request.getSession().setAttribute("ni","meiyou");
+        request.getSession().setAttribute("niwww",11);
+
+        User user = new User();
+        user.setUsername("sss");
+        user.setId(123);
+        user.setAge(12);
+        request.getSession().setAttribute("uua",user);
+
+        User user1 = (User) request.getSession().getAttribute("uua");
+        System.out.println(user1.getUsername()+user1.getId()+"  "+user1.getAge());
+        return ResultUtils.succeed();
+    }
+
+    @ResponseBody
+    @RequestMapping("/testRedis2")
+    public Result testRedis2(HttpServletRequest request) {
+        User user1 = (User) request.getSession().getAttribute("uua");
+        System.out.println(user1.getUsername()+user1.getId()+"  "+user1.getAge());
+
+
+        User ser = (User) request.getSession().getAttribute("user");
+        System.out.println(ser.getUsername()+ser.getId()+"  "+ser.getAge());
+        return ResultUtils.succeed();
     }
 
 }

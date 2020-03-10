@@ -3,19 +3,20 @@
 <title>Home</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="shop/css/style.css" rel="stylesheet" type="text/css" media="all"/>
-<link href="shop/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
-<script type="text/javascript" src="shop/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="shop/js/move-top.js"></script>
-<script type="text/javascript" src="shop/js/easing.js"></script>
-<script type="text/javascript" src="shop/js/startstop-slider.js"></script>
+<link href="shopweb/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="shopweb/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="shopweb/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="shopweb/js/move-top.js"></script>
+<script type="text/javascript" src="shopweb/js/easing.js"></script>
+<script type="text/javascript" src="shopweb/js/startstop-slider.js"></script>
 <!-- 开发环境版本，包含了有帮助的命令行警告 -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 <!-- 生产环境版本，优化了尺寸和速度 -->
 <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 </head>
 <body>
-  <div class="wrap">
+<div class="wrap">
 	<div class="header">
 		<div class="headertop_desc">
 			<div class="call">
@@ -23,22 +24,21 @@
 			</div>
 			<div class="account_desc">
 				<ul>
-					<li><a href="#">Register</a></li>
-					<li><a href="#">Login</a></li>
-					<li><a href="#">Delivery</a></li>
-					<li><a href="#">Checkout</a></li>
-					<li><a href="#">My Account</a></li>
+					<li><a href="/shopweb/register.html">注册</a></li>
+					<li><a href="/shopweb/userLogin.html">登录</a></li>
+					<li><a id="username" href="#">未登录</a></li>
+					<li><a href="#">我的账号</a></li>
 				</ul>
 			</div>
 			<div class="clear"></div>
 		</div>
 		<div class="header_top">
 			<div class="logo">
-				<a href="index.html"><img src="shop/images/logo.png" alt="" /></a>
+				<a href="index.html"><img src="shopweb/images/logo.png" alt="" /></a>
 			</div>
 			  <div class="cart">
-			  	   <p>Welcome to our Online Store! <span>Cart:</span><div id="dd" class="wrapper-dropdown-2"> 0 item(s) - $0.00
-			  	   	<ul class="dropdown">
+				   <p>Welcome to our Online Store! <span>Cart:</span><div id="dd" class="wrapper-dropdown-2"> 0 item(s) - $0.00
+					<ul class="dropdown">
 							<li>you have no items in your Shopping cart</li>
 					</ul></div></p>
 			  </div>
@@ -54,7 +54,7 @@
 					obj.dd.on('click', function(event){
 						$(this).toggleClass('active');
 						event.stopPropagation();
-					});	
+					});
 				}
 			}
 
@@ -71,194 +71,150 @@
 
 		</script>
 	 <div class="clear"></div>
-  </div>
-	<div class="header_bottom">
-	     	<div class="menu">
-	     		<ul>
-			    	<li class="active"><a href="index.html">Home</a></li>
-			    	<li><a href="about.html">About</a></li>
-			    	<li><a href="delivery.html">Delivery</a></li>
-			    	<li><a href="news.html">News</a></li>
-			    	<li><a href="contact.html">Contact</a></li>
-			    	<div class="clear"></div>
-     			</ul>
-	     	</div>
-	     	<div class="search_box">
-	     		<form>
-	     			<input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
-	     		</form>
-	     	</div>
-	     	<div class="clear"></div>
-	     </div>	     
-	<div class="header_slide">
-			<div class="header_bottom_left">				
-				<div class="categories">
-				  <ul>
-				  	<h3>Categories</h3>
-				      <li><a href="#">Mobile Phones</a></li>
-				      <li><a href="#">Desktop</a></li>
-				      <li><a href="#">Laptop</a></li>
-				      <li><a href="#">Accessories</a></li>
-				      <li><a href="#">Software</a></li>
-				       <li><a href="#">Sports &amp; Fitness</a></li>
-				       <li><a href="#">Footwear</a></li>
-				       <li><a href="#">Jewellery</a></li>
-				       <li><a href="#">Clothing</a></li>
-				       <li><a href="#">Home Decor &amp; Kitchen</a></li>
-				       <li><a href="#">Beauty &amp; Healthcare</a></li>
-				       <li><a href="#">Toys, Kids &amp; Babies</a></li>
-				  </ul>
-				</div>					
-	  	     </div>
-					 <div class="header_bottom_right">					 
-					 	 <div class="slider">					     
-							 <div id="slider">
-			                    <div id="mover">
-			                    	<div id="slide-1" class="slide">			                    
+	</div>
+		<div class="header_bottom">
+				<div class="menu">
+					<ul>
+						<li class="active"><a href="index.html">Home</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="delivery.html">Delivery</a></li>
+						<li><a href="news.html">News</a></li>
+						<li><a href="contact.html">Contact</a></li>
+						<div class="clear"></div>
+					</ul>
+				</div>
+				<div class="search_box">
+					<form>
+						<input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
+					</form>
+				</div>
+				<div class="clear"></div>
+			 </div>
+		<div class="header_slide">
+				<div class="header_bottom_left">
+					<div class="categories">
+					  <ul>
+						<h3>分类</h3>
+						  <li><a href="#">手机</a></li>
+						  <li><a href="#">电脑</a></li>
+						  <li><a href="#">手提电脑</a></li>
+					  </ul>
+					</div>
+				 </div>
+				 <div class="header_bottom_right">
+					 <div class="slider">
+						 <div id="slider">
+							<div id="mover">
+								<div id="slide-1" class="slide">
+								 <div class="slider-img">
+									 <a href="preview.html"><img src="shopweb/images/slide-1-image.png" alt="learn more" /></a>
+								  </div>
+									<div class="slider-text">
+									 <h1>Clearance<br><span>SALE</span></h1>
+									 <h2>UPTo 20% OFF</h2>
+								   <div class="features_list">
+									<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
+									</div>
+									 <a href="preview.html" class="button">Shop Now</a>
+								   </div>
+								  <div class="clear"></div>
+							  </div>
+								<div class="slide">
+										<div class="slider-text">
+									 <h1>Clearance<br><span>SALE</span></h1>
+									 <h2>UPTo 40% OFF</h2>
+								   <div class="features_list">
+									<h4>Get to Know More About Our Memorable Services</h4>
+									</div>
+									 <a href="preview.html" class="button">Shop Now</a>
+								   </div>
 									 <div class="slider-img">
-									     <a href="preview.html"><img src="shop/images/slide-1-image.png" alt="learn more" /></a>
-									  </div>
-						             	<div class="slider-text">
-		                                 <h1>Clearance<br><span>SALE</span></h1>
-		                                 <h2>UPTo 20% OFF</h2>
-									   <div class="features_list">
-									   	<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>							               
-							            </div>
-							             <a href="preview.html" class="button">Shop Now</a>
-					                   </div>			               
-									  <div class="clear"></div>				
-				                  </div>	
-						             	<div class="slide">
-						             		<div class="slider-text">
-		                                 <h1>Clearance<br><span>SALE</span></h1>
-		                                 <h2>UPTo 40% OFF</h2>
-									   <div class="features_list">
-									   	<h4>Get to Know More About Our Memorable Services</h4>							               
-							            </div>
-							             <a href="preview.html" class="button">Shop Now</a>
-					                   </div>		
-						             	 <div class="slider-img">
-									     <a href="preview.html"><img src="shop/images/slide-3-image.jpg" alt="learn more" /></a>
-									  </div>						             					                 
-									  <div class="clear"></div>				
-				                  </div>
-				                  <div class="slide">						             	
-					                  <div class="slider-img">
-									     <a href="preview.html"><img src="shop/images/slide-2-image.jpg" alt="learn more" /></a>
-									  </div>
-									  <div class="slider-text">
-		                                 <h1>Clearance<br><span>SALE</span></h1>
-		                                 <h2>UPTo 10% OFF</h2>
-									   <div class="features_list">
-									   	<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>							               
-							            </div>
-							             <a href="preview.html" class="button">Shop Now</a>
-					                   </div>	
-									  <div class="clear"></div>				
-				                  </div>												
-			                 </div>		
-		                </div>
-					 <div class="clear"></div>					       
-		         </div>
-		      </div>
-		   <div class="clear"></div>
-		</div>
-   </div>
-   <div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >网页模板</a></div>
- <div class="main">
-    <div class="content">
-    	<div class="content_top">
-    		<div class="heading">
-    		<h3>New Products</h3>
-    		</div>
-    		<div class="see">
-    			<p><a href="#">See all Products</a></p>
-    		</div>
-    		<div class="clear"></div>
-    	</div>
-	      <div class="section group itemGroup">
+									 <a href="preview.html"><img src="shopweb/images/slide-3-image.jpg" alt="learn more" /></a>
+								  </div>
+								  <div class="clear"></div>
+							  </div>
+								<div class="slide">
+								  <div class="slider-img">
+									 <a href="preview.html"><img src="shopweb/images/slide-2-image.jpg" alt="learn more" /></a>
+								  </div>
+								  <div class="slider-text">
+									 <h1>Clearance<br><span>SALE</span></h1>
+									 <h2>UPTo 10% OFF</h2>
+								   <div class="features_list">
+									<h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
+									</div>
+									 <a href="preview.html" class="button">Shop Now</a>
+								   </div>
+								  <div class="clear"></div>
+							  </div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			   <div class="clear"></div>
+			</div>
+	</div>
+
+	<div class="main">
+		<div class="content">
+			<div class="content_top">
+				<div class="heading">
+				<h3>新商品</h3>
+				</div>
+				<div class="see">
+					<p><a href="#">查看所有</a></p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="section group itemGroup">
 				<div class="grid_1_of_4 images_1_of_4" v-for="item in itemlist">
-					<a :href="'/shop/item?itemid='+item.id+'&action=click'" ><img :src="'shop/images/feature-pic'+item.id+'.jpg'" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
+					<a :href="'/shop/item?itemid='+item.id+'&action=click'+'&uid='+item.uid" ><img :src='item.picture' alt="" /></a>
+					 <h2>{{item.name}}</h2>
 					<div class="price-details">
-				       <div class="price-number">
-							<p><span class="rupees">$620.87</span></p>
-					    </div>
+					   <div class="price-number">
+							<p><span class="rupees">${{item.price}}</span></p>
+						</div>
 						<div class="add-cart">
-							<h4><a :href="'/shop/item?itemid='+item.id+'&action=cart'">Add to Cart</a></h4>
+							<h4><a :href="'/shop/item?itemid='+item.id+'&action=cart'+'&uid='+item.uid">购买</a></h4>
 						 </div>
 						 <div class="clear"></div>
 					</div>
 				</div>
+			</div>
+		</div>
 
+		<!--推荐列表-->
+		<div class="content">
+			<div class="content_top">
+				<div class="heading">
+					<h3>推荐列表</h3>
+				</div>
+				<div class="see">
+					<p><a href="#">查看所有</a></p>
+				</div>
+				<div class="clear"></div>
 			</div>
-			<div class="content_bottom">
-    		<div class="heading">
-    		<h3>Feature Products</h3>
-    		</div>
-    		<div class="see">
-    			<p><a href="#">See all Products</a></p>
-    		</div>
-    		<div class="clear"></div>
-    	</div>
-			<div class="section group">
-				<div class="grid_1_of_4 images_1_of_4">
-					 <a href="preview.html"><img src="shop/images/new-pic1.jpg" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
+			<div class="section group itemGroupRec">
+				<div class="grid_1_of_4 images_1_of_4" v-for="item in itemlist">
+					<a :href="'/shop/item?itemid='+item.id+'&action=click'+'&uid='+item.uid" ><img :src='item.picture' alt="" /></a>
+					<h2>{{item.name}}</h2>
 					<div class="price-details">
-				       <div class="price-number">
-							<p><span class="rupees">$849.99</span></p>
-					    </div>
-					       		<div class="add-cart">								
-									<h4><a href="preview.html">Add to Cart</a></h4>
-							     </div>
-							 <div class="clear"></div>
-					</div>
-				</div>
-				<div class="grid_1_of_4 images_1_of_4">
-					<a href="preview.html"><img src="shop/images/new-pic2.jpg" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					 <div class="price-details">
-				       <div class="price-number">
-							<p><span class="rupees">$599.99</span></p>
-					    </div>
-					       		<div class="add-cart">								
-									<h4><a href="preview.html">Add to Cart</a></h4>
-							     </div>
-							 <div class="clear"></div>
-					</div>
-				</div>
-				<div class="grid_1_of_4 images_1_of_4">
-					<a href="preview.html"><img src="shop/images/new-pic4.jpg" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>
-					<div class="price-details">
-				       <div class="price-number">
-							<p><span class="rupees">$799.99</span></p>
-					    </div>
-					       		<div class="add-cart">								
-									<h4><a href="preview.html">Add to Cart</a></h4>
-							     </div>
-							 <div class="clear"></div>
-					</div>
-				</div>
-				<div class="grid_1_of_4 images_1_of_4">
-				 <a href="preview.html"><img src="shop/images/new-pic3.jpg" alt="" /></a>
-					 <h2>Lorem Ipsum is simply </h2>					 
-					 <div class="price-details">
-				       <div class="price-number">
-							<p><span class="rupees">$899.99</span></p>
-					    </div>
-					       		<div class="add-cart">								
-									<h4><a href="preview.html">Add to Cart</a></h4>
-							     </div>
-							 <div class="clear"></div>
+						<div class="price-number">
+							<p><span class="rupees">${{item.price}}</span></p>
+						</div>
+						<div class="add-cart">
+							<h4><a :href="'/shop/item?itemid='+item.id+'&action=cart'+'&uid='+item.uid">购买</a></h4>
+						</div>
+						<div class="clear"></div>
 					</div>
 				</div>
 			</div>
-    </div>
- </div>
+		</div>
+	</div>
 </div>
-   <div class="footer">
+
+<div class="footer">
    	  <div class="wrap">	
 	     <div class="section group">
 				<div class="col_1_of_4 span_1_of_4">
@@ -300,11 +256,11 @@
 						<div class="social-icons">
 							<h4>Follow Us</h4>
 					   		  <ul>
-							      <li><a href="#" target="_blank"><img src="shop/images/facebook.png" alt="" /></a></li>
-							      <li><a href="#" target="_blank"><img src="shop/images/twitter.png" alt="" /></a></li>
-							      <li><a href="#" target="_blank"><img src="shop/images/skype.png" alt="" /> </a></li>
-							      <li><a href="#" target="_blank"> <img src="shop/images/dribbble.png" alt="" /></a></li>
-							      <li><a href="#" target="_blank"> <img src="shop/images/linkedin.png" alt="" /></a></li>
+							      <li><a href="#" target="_blank"><img src="shopweb/images/facebook.png" alt="" /></a></li>
+							      <li><a href="#" target="_blank"><img src="shopweb/images/twitter.png" alt="" /></a></li>
+							      <li><a href="#" target="_blank"><img src="shopweb/images/skype.png" alt="" /> </a></li>
+							      <li><a href="#" target="_blank"> <img src="shopweb/images/dribbble.png" alt="" /></a></li>
+							      <li><a href="#" target="_blank"> <img src="shopweb/images/linkedin.png" alt="" /></a></li>
 							      <div class="clear"></div>
 						     </ul>
    	 					</div>
@@ -315,26 +271,71 @@
 				<p>Copyright &copy; 2014.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
 		   </div>
     </div>
-    <script type="text/javascript">
-		$(document).ready(function() {			
-			$().UItoTop({ easingType: 'easeOutQuart' });
-			
-		});
 
-		var vm = new Vue({
-			el: '.itemGroup',
-			data: {
-				itemlist: [
-					{ id: '1' },
-					{ id: '2' },
-					{ id: '3' },
-					{ id: '4' }
-				]
+<a href="#" id="toTop"><span id="toTopHover"> </span></a>
+
+<script type="text/javascript">
+	var uid=null;
+	var uname=null;
+	$(document).ready(function() {
+		$().UItoTop({ easingType: 'easeOutQuart' });
+
+		//加载用户
+        $.ajax({
+            url:"/user/getUser",
+            type:"POST",
+            data:{
+            },
+            dataType:"json",
+            success:function(data){
+                uid=data.data.id;
+                uname=data.data.username;
+                $("#username").html(uname);
+            },
+            error:function(er){
+                layer.msg("服务器出错，请重试！"+console.log(er));
+                console.log(er)
+            }
+        });
+
+	});
+
+	//加载数据全部商品
+	var vm = new Vue({
+		el: '.itemGroup',
+		data(){
+			return {
+				itemlist: []
 			}
-		})
-	</script>
-    <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+		},
+		mounted () {
+			axios
+				.get('/shop/getAll')
+				.then(response => (this.itemlist = response.data.data))
+				.catch(function (error) { // 请求失败处理
+					console.log(error);
+				});
+		}
+	})
 
+    //加载数据全部商品
+    var vmRec = new Vue({
+        el: '.itemGroupRec',
+        data(){
+            return {
+                itemlist: []
+            }
+        },
+        mounted () {
+            axios
+                .get('/shop/getRecommend')
+                .then(response => (this.itemlist = response.data.data))
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+        }
+    })
+</script>
 </body>
 </html>
 

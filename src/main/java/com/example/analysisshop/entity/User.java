@@ -3,8 +3,12 @@ package com.example.analysisshop.entity;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
+
+
+    private static final long serialVersionUID = -6471228043670654129L;
 
     private Integer id;
 
@@ -14,7 +18,7 @@ public class User {
     @NotEmpty(message = "密码不能为空")
     private String password;
 
-    @Range(min = 0,max = 120,message = "年龄要在正常范围内")
+    //@Range(min = 0,max = 120,message = "年龄要在正常范围内")
     private int age;
 
     public Integer getId() {
@@ -47,5 +51,9 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }

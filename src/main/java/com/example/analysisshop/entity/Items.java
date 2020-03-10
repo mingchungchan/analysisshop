@@ -1,17 +1,19 @@
 package com.example.analysisshop.entity;
 
-public class Items {
+public class Items{
 
-    private int id;         //id
-    private String name;    //名字
-    private String brief;   //简介
-    private String picture; //图片
+    private Integer id;
+    private String name;
+    private String brief;
+    private String picture;
+    private Double price;
 
-    public int getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,5 +39,13 @@ public class Items {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }
